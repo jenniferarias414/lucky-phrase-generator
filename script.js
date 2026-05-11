@@ -36,7 +36,16 @@ const phrases = [
   "Your courage is louder than your doubt.",
   "Success can arrive quietly, then all at once.",
   "You are learning your way into the next level.",
-  "What is meant for you can meet you while you are still growing."
+  "What is meant for you can meet you while you are still growing.",
+  `You are...
+- a junior engineer
+- with real production experience
+- aggressively investing in growth
+- learning fast
+- contributing meaningfully
+- already trusted in enterprise systems
+
+That is REAL.`
 ];
 
 const phraseElement = document.getElementById("phrase");
