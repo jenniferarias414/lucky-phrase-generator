@@ -32,12 +32,19 @@ When the user clicks the button, JavaScript:
 ```text
 lucky-phrase-generator/
 │
+├── screenshots
 ├── index.html
 ├── styles.css
 ├── script.js
 ├── README.md
 └── .gitignore
 ```
+
+---
+
+## Screenshot
+
+![Lucky Phrase Generator](screenshots/01_lucky_phrase_generator.png)
 
 ---
 
