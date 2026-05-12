@@ -37,6 +37,15 @@ const phrases = [
   "Success can arrive quietly, then all at once.",
   "You are learning your way into the next level.",
   "What is meant for you can meet you while you are still growing.",
+  "A mirror can show the bruise and still miss the strength.",
+  "You are not fake for meeting the edge of what you know.",
+  "The questions you missed today can become the ground you stand on tomorrow.",
+  "A shaky answer does not erase real effort, real learning, or real belonging.",
+  "Let the hurt name the lesson, not your worth.",
+  "You can be disappointed and still be becoming someone formidable.",
+  "A stumble in the room is not proof you were never meant to enter it.",
+  "The soul gets centered when the story gets honest: you struggled, you care, and you are still here.",
+  "Basic questions can feel heavy on a hard day. Keep studying without making cruelty your teacher.",
   `You are...
 - a junior engineer
 - with real production experience
