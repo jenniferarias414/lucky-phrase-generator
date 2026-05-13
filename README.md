@@ -95,3 +95,4 @@ button.addEventListener("click", showRandomPhrase);
 - Add a daily phrase feature
 - Add local storage for favorite phrases
 - Convert to a React app
+- Connect to external API to fetch dynamically
