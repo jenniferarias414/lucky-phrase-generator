@@ -54,7 +54,9 @@ const phrases = [
 - contributing meaningfully
 - already trusted in enterprise systems
 
-That is REAL.`
+That is REAL.`,
+"You are a learner who is investing in growth, and that is a powerful thing to be.",
+"Your career is DATA. And data is sexy."
 ];
 
 const phraseElement = document.getElementById("phrase");
