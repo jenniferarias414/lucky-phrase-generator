@@ -56,7 +56,10 @@ const phrases = [
 
 That is REAL.`,
 "You are a learner who is investing in growth, and that is a powerful thing to be.",
-"Your career is DATA. And data is sexy."
+"Your career is DATA. And data is sexy.",
+`Don't stop when you get to the next level. Keep going. The next level is just the beginning of a new chapter.`,
+`Don't stop when you're tired. Stop when you are done.`,
+`When you feel like giving up, remember why you started.`
 ];
 
 const phraseElement = document.getElementById("phrase");
