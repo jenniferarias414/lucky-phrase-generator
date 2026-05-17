@@ -59,7 +59,12 @@ That is REAL.`,
 "Your career is DATA. And data is sexy.",
 `Don't stop when you get to the next level. Keep going. The next level is just the beginning of a new chapter.`,
 `Don't stop when you're tired. Stop when you are done.`,
-`When you feel like giving up, remember why you started.`
+`When you feel like giving up, remember why you started.`,
+"They saw the gaps and still saw the potential. That counts as evidence.",
+"You do not have to be flawless to be worth betting on.",
+"Needing notes does not make you fake. It makes you someone who knows how to find the answer.",
+"A hard interview can still become a doorway.",
+"Keep learning the simple answers too. They are part of the foundation you are already building."
 ];
 
 const phraseElement = document.getElementById("phrase");
