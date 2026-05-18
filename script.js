@@ -64,7 +64,8 @@ That is REAL.`,
 "You do not have to be flawless to be worth betting on.",
 "Needing notes does not make you fake. It makes you someone who knows how to find the answer.",
 "A hard interview can still become a doorway.",
-"Keep learning the simple answers too. They are part of the foundation you are already building."
+"Keep learning the simple answers too. They are part of the foundation you are already building.",
+"Every skill gets less mysterious when you keep meeting it with patience and practice."
 ];
 
 const phraseElement = document.getElementById("phrase");
