@@ -65,7 +65,8 @@ That is REAL.`,
 "Needing notes does not make you fake. It makes you someone who knows how to find the answer.",
 "A hard interview can still become a doorway.",
 "Keep learning the simple answers too. They are part of the foundation you are already building.",
-"Every skill gets less mysterious when you keep meeting it with patience and practice."
+"Every skill gets less mysterious when you keep meeting it with patience and practice.",
+"Waiting for the answer does not mean your momentum has stopped. Keep tending to the life you are building."
 ];
 
 const phraseElement = document.getElementById("phrase");
