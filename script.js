@@ -66,7 +66,8 @@ That is REAL.`,
 "A hard interview can still become a doorway.",
 "Keep learning the simple answers too. They are part of the foundation you are already building.",
 "Every skill gets less mysterious when you keep meeting it with patience and practice.",
-"Waiting for the answer does not mean your momentum has stopped. Keep tending to the life you are building."
+"Waiting for the answer does not mean your momentum has stopped. Keep tending to the life you are building.",
+"May the right door open with less effort than you feared and more joy than you expected."
 ];
 
 const phraseElement = document.getElementById("phrase");
