@@ -67,7 +67,8 @@ That is REAL.`,
 "Keep learning the simple answers too. They are part of the foundation you are already building.",
 "Every skill gets less mysterious when you keep meeting it with patience and practice.",
 "Waiting for the answer does not mean your momentum has stopped. Keep tending to the life you are building.",
-"May the right door open with less effort than you feared and more joy than you expected."
+"May the right door open with less effort than you feared and more joy than you expected.",
+"If this door closes, grieve it honestly, then come back to the next small lesson. Your future is still asking you to show up."
 ];
 
 const phraseElement = document.getElementById("phrase");
