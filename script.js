@@ -30,6 +30,7 @@ const phrases = [
   "Grow through what you go through.",
   "You are stronger than you think.",
   "Take a break and try again later. Your future self will thank you.",
+  "Today you honored your wellbeing, and tomorrow you return with fresh energy and purpose.",
   "All winners were once beginners.",
   "Today's effort is tomorrow's advantage.",
   "A better outcome is still possible.",
