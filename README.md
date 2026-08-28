@@ -98,11 +98,9 @@ lucky-phrase-generator/
 
 ## Screenshots
 
-**Original Version (Static Phrases):**
-![Lucky Phrase Generator](screenshots/01_lucky_phrase_generator.png)
-
-**Current Version (Dynamic API):**
-![Lucky Phrase Generator with API](screenshots/sample_api_phrase.png)
+| Light Mode | Dark Mode |
+| --- | --- |
+| ![Lucky Phrase Generator in light mode](screenshots/sample_api_phrase.png) | ![Lucky Phrase Generator in dark mode](screenshots/dark_mode.png) |
 
 ---
 
