@@ -4,13 +4,14 @@
 
 Lucky Phrase Generator is a tiny web app that fetches random motivational advice from an external API and displays it on the page.
 
-This is a small beginner-friendly JavaScript project designed to practice:
+This is a small but very entertaining JavaScript project designed to practice:
 
 - HTML structure
 - CSS styling
 - Async/await and fetch API
 - API integration
-- Error handling
+- Error handling & fallback logic
+- JavaScript arrays and random selection
 - DOM updates
 - Button click events
 
@@ -22,11 +23,16 @@ The app connects to the Advice Slip API to fetch random motivational advice.
 
 When the user clicks the button or presses Enter/Space, JavaScript:
 
-1. Makes an async request to the Advice Slip API
+1. Attempts to make an async request to the Advice Slip API
 2. Parses the JSON response
 3. Extracts the advice text
 4. Updates the page with the fetched advice
-5. Handles any errors gracefully
+5. **If the API fails**, falls back to selecting a random phrase from a local array using JavaScript array indexing and `Math.random()`
+6. Triggers confetti celebration when advice (API or fallback) successfully displays
+
+### Fallback Logic
+
+The app maintains a curated array of 70+ motivational phrases as a fallback. If the API is unavailable or fails, a random phrase from this local array is displayed instead, ensuring the app always provides motivation!
 
 ### Keyboard Shortcuts
 
@@ -34,6 +40,10 @@ For a faster, more interactive experience, you can trigger a new phrase using:
 - **Click** the "Give me a phrase" button
 - **Press Enter** on your keyboard
 - **Press Space** on your keyboard
+
+### Confetti Celebration
+
+Every time a new phrase successfully loads, confetti particles celebrate your moment of inspiration! 🎉
 
 ---
 
@@ -87,20 +97,34 @@ async function showRandomPhrase() {
 }
 ```
 
-### Error Handling
+### JavaScript Array (Fallback)
+
+```js
+const fallbackPhrases = [
+  "Good things are already on their way.",
+  "You are capable of figuring this out."
+];
+```
+
+### Random Selection from Array
+
+```js
+function getRandomFallbackPhrase() {
+  const randomIndex = Math.floor(Math.random() * fallbackPhrases.length);
+  return fallbackPhrases[randomIndex];
+}
+```
+
+### Error Handling with Fallback
 
 ```js
 try {
   // Try to fetch the advice
 } catch (error) {
-  // Handle errors gracefully
+  // Fall back to local random phrase
+  const fallbackPhrase = getRandomFallbackPhrase();
+  phraseElement.textContent = fallbackPhrase;
 }
-```
-
-### DOM Update
-
-```js
-phraseElement.textContent = data.slip.advice;
 ```
 
 ---
@@ -114,3 +138,4 @@ phraseElement.textContent = data.slip.advice;
 - Add local storage for favorite phrases
 - Convert to a React app
 - ✅ Connect to external API to fetch dynamically (Done!)
+- ✅ Confetti celebration effect (Done!)
