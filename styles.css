@@ -26,6 +26,7 @@ body {
   padding: 40px;
   text-align: center;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  position: relative;
 }
 
 .eyebrow {
@@ -72,6 +73,169 @@ button:hover {
 
 button:active {
   transform: translateY(0);
+}
+
+/* View Favorites link - small, subtle button in top-right corner of card */
+.view-favorites-link {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  color: #7b4bb7;
+  border: none;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.view-favorites-link:hover {
+  color: #e74c3c;
+  transform: scale(1.05);
+  box-shadow: none;
+}
+
+/* Small heart button - positioned above the main button */
+.heart-btn {
+  background: transparent;
+  color: #7b4bb7;
+  border: 1px solid #7b4bb7;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.heart-btn:hover {
+  color: #e74c3c;
+  border-color: #e74c3c;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.15);
+}
+
+/* Filled heart state when phrase is favorited */
+.heart-btn.liked {
+  background: #e74c3c;
+  color: white;
+  border-color: #e74c3c;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+/* Modal styling for viewing favorites */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 16px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.close-btn {
+  background: transparent;
+  color: #242424;
+  font-size: 2rem;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: #f0f0f0;
+  box-shadow: none;
+  transform: none;
+}
+
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.favorite-item {
+  background: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid #7b4bb7;
+  font-size: 1rem;
+  line-height: 1.5;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.favorite-item-text {
+  flex: 1;
+  text-align: left;
+}
+
+.favorite-item-remove {
+  background: transparent;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.favorite-item-remove:hover {
+  background: #e74c3c;
+  color: white;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+}
+
+.empty-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+}
+
+.empty-message p {
+  margin: 0;
+  font-size: 1rem;
 }
 
 .footer-note {

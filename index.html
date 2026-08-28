@@ -9,12 +9,22 @@
 <body>
   <main class="app-container">
     <section class="card">
+      <!-- View Favorites link in top-right corner -->
+      <button id="viewFavoritesButton" class="view-favorites-link" type="button" title="View your favorite phrases">
+        ♡ View Favorites
+      </button>
+
       <p class="eyebrow">Daily mindset reset</p>
       <h1>Lucky Phrase Generator</h1>
 
       <p id="phrase" class="phrase">
         Click the button for a little boost of optimism.
       </p>
+
+      <!-- Small heart button to add current phrase to favorites -->
+      <button id="heartButton" class="heart-btn" type="button" title="Add to favorites">
+        ♡ Add to Favorites
+      </button>
 
       <button id="phraseButton" type="button">
         Give me a phrase
@@ -26,6 +36,21 @@
     </section>
   </main>
 
+  <!-- Modal to display favorite phrases -->
+  <div id="favoritesModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Your Favorite Phrases</h2>
+        <button id="closeModal" class="close-btn" type="button">&times;</button>
+      </div>
+      <div id="favoritesList" class="favorites-list">
+        <!-- Favorites will be displayed here by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti library from CDN for celebration effects -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

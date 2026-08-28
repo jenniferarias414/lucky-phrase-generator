@@ -45,6 +45,14 @@ For a faster, more interactive experience, you can trigger a new phrase using:
 
 Every time a new phrase successfully loads, confetti particles celebrate your moment of inspiration! 🎉
 
+### Heart/Favorites System
+
+Love a phrase? Click the small "♡ Add to Favorites" button to save it! 
+- **Saved phrases** have a filled red heart
+- **View Favorites** link in the top-right corner displays all your saved phrases in a modal
+- **Remove** individual phrases from favorites with one click
+- Favorites are saved in your browser's localStorage, so they persist even after closing the tab
+
 ---
 
 ## Project Structure
@@ -127,6 +135,16 @@ try {
 }
 ```
 
+### localStorage for Persistence
+
+```js
+// Save favorites to browser storage
+localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+
+// Load favorites from browser storage
+const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY));
+```
+
 ---
 
 ## Future Improvements
@@ -135,7 +153,4 @@ try {
 - Add animations
 - Add a copy-to-clipboard button
 - Add a daily phrase feature
-- Add local storage for favorite phrases
 - Convert to a React app
-- ✅ Connect to external API to fetch dynamically (Done!)
-- ✅ Confetti celebration effect (Done!)

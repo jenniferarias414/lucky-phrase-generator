@@ -80,11 +80,104 @@ That is REAL.`,
 
 const phraseElement = document.getElementById("phrase");
 const button = document.getElementById("phraseButton");
+const heartButton = document.getElementById("heartButton");
+const viewFavoritesButton = document.getElementById("viewFavoritesButton");
+const favoritesModal = document.getElementById("favoritesModal");
+const closeModal = document.getElementById("closeModal");
+const favoritesList = document.getElementById("favoritesList");
+
+// Track the currently displayed phrase so we can favorite it
+let currentPhrase = "";
+
+// localStorage key for storing favorites
+const FAVORITES_KEY = "luckyPhraseGenerator_favorites";
 
 // Function to pick a random phrase from the fallback array
 function getRandomFallbackPhrase() {
   const randomIndex = Math.floor(Math.random() * fallbackPhrases.length);
   return fallbackPhrases[randomIndex];
+}
+
+// Load favorites from localStorage - returns an array of favorite phrases
+function loadFavorites() {
+  const favorites = localStorage.getItem(FAVORITES_KEY);
+  return favorites ? JSON.parse(favorites) : [];
+}
+
+// Save favorites to localStorage
+function saveFavorites(favorites) {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+}
+
+// Check if a phrase is already in favorites
+function isFavorited(phrase) {
+  const favorites = loadFavorites();
+  return favorites.includes(phrase);
+}
+
+// Add phrase to favorites or remove if already favorited (toggle)
+function toggleFavorite(phrase) {
+  const favorites = loadFavorites();
+  const index = favorites.indexOf(phrase);
+  
+  if (index > -1) {
+    // Remove from favorites
+    favorites.splice(index, 1);
+  } else {
+    // Add to favorites
+    favorites.push(phrase);
+  }
+  
+  saveFavorites(favorites);
+  updateHeartButton();
+}
+
+// Update heart button appearance based on current phrase favorite status
+function updateHeartButton() {
+  if (isFavorited(currentPhrase)) {
+    heartButton.classList.add("liked");
+    heartButton.textContent = "♥"; // Filled heart
+  } else {
+    heartButton.classList.remove("liked");
+    heartButton.textContent = "♡"; // Empty heart
+  }
+}
+
+// Display the favorites modal with all saved phrases
+function displayFavorites() {
+  const favorites = loadFavorites();
+  
+  if (favorites.length === 0) {
+    // Show empty state message
+    favoritesList.innerHTML = `
+      <div class="empty-message">
+        <p>No favorite phrases yet! Heart a phrase to add it here 💕</p>
+      </div>
+    `;
+  } else {
+    // Build HTML for each favorite phrase with a remove button
+    favoritesList.innerHTML = favorites.map((phrase, index) => `
+      <div class="favorite-item">
+        <div class="favorite-item-text">${phrase}</div>
+        <button class="favorite-item-remove" data-index="${index}" type="button">Remove</button>
+      </div>
+    `).join("");
+    
+    // Add event listeners to all remove buttons
+    const removeButtons = favoritesList.querySelectorAll(".favorite-item-remove");
+    removeButtons.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const index = parseInt(e.target.getAttribute("data-index"));
+        const favorites = loadFavorites();
+        favorites.splice(index, 1);
+        saveFavorites(favorites);
+        displayFavorites(); // Refresh the display
+      });
+    });
+  }
+  
+  // Show the modal
+  favoritesModal.classList.remove("hidden");
 }
 
 async function showRandomPhrase() {
@@ -94,15 +187,25 @@ async function showRandomPhrase() {
     const response = await fetch("https://api.adviceslip.com/advice");
     const data = await response.json();
     
-    phraseElement.textContent = data.slip.advice;
+    // Store current phrase so it can be favorited
+    currentPhrase = data.slip.advice;
+    phraseElement.textContent = currentPhrase;
+    
+    // Update heart button to show if this phrase is already favorited
+    updateHeartButton();
+    
     // Trigger confetti celebration when advice successfully loads
     // confetti() is provided by the canvas-confetti library
     confetti();
   } catch (error) {
     // If API fails, show a random phrase from the fallback array instead
     // This ensures users always get a motivational message
-    const fallbackPhrase = getRandomFallbackPhrase();
-    phraseElement.textContent = fallbackPhrase;
+    currentPhrase = getRandomFallbackPhrase();
+    phraseElement.textContent = currentPhrase;
+    
+    // Update heart button for fallback phrase
+    updateHeartButton();
+    
     console.error("API unavailable, using fallback phrase:", error);
   }
 }
@@ -119,5 +222,27 @@ document.addEventListener("keydown", (event) => {
     event.preventDefault();
     // Trigger the same function as the button click
     showRandomPhrase();
+  }
+});
+
+// Heart button event listener - toggle favorite status for current phrase
+heartButton.addEventListener("click", () => {
+  if (currentPhrase) {
+    toggleFavorite(currentPhrase);
+  }
+});
+
+// View Favorites button event listener - open the favorites modal
+viewFavoritesButton.addEventListener("click", displayFavorites);
+
+// Close modal event listeners
+closeModal.addEventListener("click", () => {
+  favoritesModal.classList.add("hidden");
+});
+
+// Close modal when clicking outside the modal content
+favoritesModal.addEventListener("click", (e) => {
+  if (e.target === favoritesModal) {
+    favoritesModal.classList.add("hidden");
   }
 });
