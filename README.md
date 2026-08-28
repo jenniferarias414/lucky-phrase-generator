@@ -45,9 +45,13 @@ lucky-phrase-generator/
 
 ---
 
-## Screenshot
+## Screenshots
 
+**Original Version (Static Phrases):**
 ![Lucky Phrase Generator](screenshots/01_lucky_phrase_generator.png)
+
+**Current Version (Dynamic API):**
+![Lucky Phrase Generator with API](screenshots/sample_api_phrase.png)
 
 ---
 
