@@ -1,0 +1,36 @@
+{
+  "name": "lucky-phrase-generator",
+  "version": "1.0.0",
+  "description": "Lucky Phrase Generator is a tiny web app that fetches random motivational advice from an external API and displays it on the page.",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "utils.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenniferarias414/lucky-phrase-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jenniferarias414/lucky-phrase-generator/issues"
+  },
+  "homepage": "https://github.com/jenniferarias414/lucky-phrase-generator#readme",
+  "devDependencies": {
+    "jest": "^30.5.0",
+    "jest-environment-jsdom": "^30.5.0"
+  }
+}

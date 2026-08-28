@@ -2,18 +2,25 @@
 
 ## Overview
 
-Lucky Phrase Generator is a tiny web app that fetches random motivational advice from an external API and displays it on the page.
+Lucky Phrase Generator is a demonstration web application that showcases modern JavaScript development practices, including API integration, state management, testing, and UI/UX design patterns. The application fetches random quotes and advice from multiple external APIs while maintaining local fallback content, providing a robust user experience.
 
-This is a small but very entertaining JavaScript project designed to practice:
+### Educational Focus
 
-- HTML structure
-- CSS styling
-- Async/await and fetch API
-- API integration
-- Error handling & fallback logic
-- JavaScript arrays and random selection
-- DOM updates
-- Button click events
+This project serves as a practical reference for:
+- API integration with error handling and fallback strategies
+- localStorage for persistent user data
+- Automated testing with Jest (34 tests covering business logic)
+- Responsive UI design with semantic HTML and CSS
+- Event-driven architecture and keyboard accessibility
+- Multiple API source management with custom response parsing
+
+### Live Features
+- 🎲 **Multiple API Sources** - Rotates between Advice Slip and Quotable APIs
+- 🎉 **Confetti Celebration** - Visual feedback on successful loads
+- ♡ **Favorites System** - localStorage-backed phrase bookmarking
+- ⌨️ **Keyboard Shortcuts** - Enter/Space keys for quick access
+- 🔄 **Resilient Fallbacks** - 70+ local phrases ensure content availability
+- ✅ **Comprehensive Tests** - 34 Jest tests validating critical logic
 
 ---
 
@@ -94,6 +101,26 @@ lucky-phrase-generator/
 Open `index.html` in a browser.
 
 No installation required.
+
+### Running Tests
+
+This project includes a comprehensive Jest test suite covering business logic and edge cases.
+
+```bash
+# Install test dependencies
+npm install
+
+# Run all tests
+npm test
+
+# Run tests in watch mode (rerun on changes)
+npm test -- --watch
+
+# Generate coverage report
+npm test -- --coverage
+```
+
+For detailed testing documentation, see [tests/README.md](tests/README.md) which covers testing philosophy, test structure, and best practices for adding new tests.
 
 ---
 
