@@ -129,13 +129,13 @@ function isFavorited(phrase) {
 function toggleFavorite(phrase) {
   const favorites = loadFavorites();
   const index = favorites.indexOf(phrase);
-  
+
   if (index > -1) {
     favorites.splice(index, 1);
   } else {
     favorites.push(phrase);
   }
-  
+
   saveFavorites(favorites);
 }
 
@@ -179,6 +179,59 @@ function parseQuotableResponse(data) {
   return `${data.content} — ${data.author}`;
 }
 
+// ===== DARK MODE THEME MANAGEMENT =====
+
+const THEME_KEY = "luckyPhraseGenerator_theme";
+const DARK_THEME = "dark";
+const LIGHT_THEME = "light";
+
+/**
+ * Get the current theme from localStorage or system preference
+ * @returns {string} Either 'dark' or 'light'
+ */
+function getCurrentTheme() {
+  const savedTheme = localStorage.getItem(THEME_KEY);
+
+  // Validate that saved theme is one of the valid options
+  if (savedTheme === DARK_THEME || savedTheme === LIGHT_THEME) {
+    return savedTheme;
+  }
+
+  // Check system preference if no valid saved theme
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return DARK_THEME;
+  }
+
+  return LIGHT_THEME;
+}
+
+/**
+ * Set the theme and save preference to localStorage
+ * @param {string} theme - Either 'dark' or 'light'
+ */
+function setTheme(theme) {
+  const validTheme = theme === DARK_THEME ? DARK_THEME : LIGHT_THEME;
+  localStorage.setItem(THEME_KEY, validTheme);
+
+  // Apply theme to DOM
+  if (validTheme === DARK_THEME) {
+    document.documentElement.setAttribute("data-theme", DARK_THEME);
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+  }
+}
+
+/**
+ * Toggle between light and dark themes
+ * @returns {string} The new theme that was applied
+ */
+function toggleTheme() {
+  const currentTheme = getCurrentTheme();
+  const newTheme = currentTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME;
+  setTheme(newTheme);
+  return newTheme;
+}
+
 // Export for Node.js testing
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
@@ -192,6 +245,12 @@ if (typeof module !== "undefined" && module.exports) {
     parseQuotableResponse,
     fallbackPhrases,
     apiSources,
-    FAVORITES_KEY
+    FAVORITES_KEY,
+    getCurrentTheme,
+    setTheme,
+    toggleTheme,
+    THEME_KEY,
+    DARK_THEME,
+    LIGHT_THEME
   };
 }

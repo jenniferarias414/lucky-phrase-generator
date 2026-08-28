@@ -75,6 +75,155 @@ button:active {
   transform: translateY(0);
 }
 
+/* Dark mode toggle button - small button in top-left corner */
+.dark-mode-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: transparent;
+  color: #7b4bb7;
+  border: none;
+  font-size: 1.5rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-mode-btn:hover {
+  transform: scale(1.1);
+  box-shadow: none;
+}
+
+.dark-mode-btn:active {
+  transform: scale(1);
+}
+
+/* Dark theme colors and styles */
+[data-theme="dark"] {
+  --bg-gradient: linear-gradient(135deg, #1a1a1a, #2d1b3d, #1a2d3d);
+  --card-bg: rgba(40, 40, 40, 0.95);
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --accent-primary: #b88edb;
+  --accent-secondary: #f77a7a;
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  --modal-bg: #2a2a2a;
+}
+
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, #1a1a1a, #2d1b3d, #1a2d3d);
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .card {
+  background: rgba(40, 40, 40, 0.95);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .eyebrow {
+  color: #b88edb;
+}
+
+[data-theme="dark"] h1 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .phrase {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .footer-note {
+  color: #b0b0b0;
+}
+
+[data-theme="dark"] button {
+  background: #b88edb;
+  color: #1a1a1a;
+}
+
+[data-theme="dark"] button:hover {
+  box-shadow: 0 10px 22px rgba(184, 142, 219, 0.4);
+}
+
+[data-theme="dark"] .dark-mode-btn {
+  background: transparent;
+  color: #b88edb;
+}
+
+[data-theme="dark"] .view-favorites-link {
+  background: transparent;
+  color: #b88edb;
+}
+
+[data-theme="dark"] .view-favorites-link:hover {
+  color: #f77a7a;
+}
+
+[data-theme="dark"] .heart-btn {
+  background: transparent;
+  border-color: #b88edb;
+  color: #b88edb;
+}
+
+[data-theme="dark"] .heart-btn:hover {
+  color: #f77a7a;
+  border-color: #f77a7a;
+  box-shadow: 0 4px 12px rgba(247, 122, 122, 0.2);
+}
+
+[data-theme="dark"] .heart-btn.liked {
+  background: #f77a7a;
+  color: white;
+  border-color: #f77a7a;
+}
+
+[data-theme="dark"] .modal-content {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .modal-header {
+  border-bottom-color: #404040;
+}
+
+[data-theme="dark"] .favorite-item {
+  background: #404040;
+  border-left-color: #b88edb;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .favorite-item-text {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .favorite-item-remove {
+  color: #f77a7a;
+  border-color: #f77a7a;
+  background: transparent;
+}
+
+[data-theme="dark"] .favorite-item-remove:hover {
+  background: #f77a7a;
+  color: #1a1a1a;
+}
+
+[data-theme="dark"] .empty-message {
+  color: #707070;
+}
+
+[data-theme="dark"] .close-btn {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .close-btn:hover {
+  background: #404040;
+}
+
 /* View Favorites link - small, subtle button in top-right corner of card */
 .view-favorites-link {
   position: absolute;

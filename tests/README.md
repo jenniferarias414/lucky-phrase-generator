@@ -61,7 +61,7 @@ Tests the random selection functions that provide variety and API source distrib
 - Collection-based assertions (`toContain`, `toHaveProperty`)
 - Iteration and sampling strategies for randomness validation
 
-### `api.test.js` (8 tests)
+### `api.test.js` (10 tests)
 
 Tests the API response parsers that transform external API responses into displayable content.
 
@@ -74,6 +74,23 @@ Tests the API response parsers that transform external API responses into displa
 - Mock objects representing real API responses
 - Data transformation validation
 - Defensive programming (handling extra/missing fields)
+
+### `theme.test.js` (17 tests)
+
+Tests the dark mode theme management system, localStorage persistence, and system preference detection.
+
+**Tests:**
+- **getCurrentTheme()** - Validates theme retrieval from localStorage with system preference fallback
+- **setTheme()** - Confirms theme persistence to localStorage and DOM attribute application
+- **toggleTheme()** - Tests bidirectional theme switching
+- **Theme Persistence** - Validates saved theme survives simulated page reloads
+- **Error Handling** - Ensures corrupted localStorage data is handled gracefully
+
+**Key Concepts:**
+- DOM attribute manipulation (`data-theme`)
+- System API detection (`window.matchMedia`)
+- Data validation and normalization
+- Graceful degradation when localStorage is corrupted
 
 ---
 
@@ -108,9 +125,9 @@ npm test -- --coverage
 
 ## Test Metrics
 
-- **Total Tests:** 21
-- **Covered Functions:** 8 pure utility functions
-- **Test Categories:** Favorites (7), Randomization (6), API Parsing (8)
+- **Total Tests:** 51
+- **Covered Functions:** 11 pure utility functions
+- **Test Categories:** Favorites (7), Randomization (6), API Parsing (10), Theme (17)
 - **Coverage Goal:** 90%+ for business logic
 
 ---

@@ -102,12 +102,56 @@ const viewFavoritesButton = document.getElementById("viewFavoritesButton");
 const favoritesModal = document.getElementById("favoritesModal");
 const closeModal = document.getElementById("closeModal");
 const favoritesList = document.getElementById("favoritesList");
+const darkModeToggle = document.getElementById("darkModeToggle");
 
 // Track the currently displayed phrase so we can favorite it
 let currentPhrase = "";
 
 // localStorage key for storing favorites
 const FAVORITES_KEY = "luckyPhraseGenerator_favorites";
+
+// Theme management constants
+const THEME_KEY = "luckyPhraseGenerator_theme";
+const DARK_THEME = "dark";
+const LIGHT_THEME = "light";
+
+// Initialize theme on page load
+function initializeTheme() {
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  let themeToApply = savedTheme;
+
+  if (!themeToApply) {
+    // Check system preference if no saved theme
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      themeToApply = DARK_THEME;
+    } else {
+      themeToApply = LIGHT_THEME;
+    }
+  }
+
+  applyTheme(themeToApply);
+}
+
+// Apply theme to the DOM and localStorage
+function applyTheme(theme) {
+  const validTheme = theme === DARK_THEME ? DARK_THEME : LIGHT_THEME;
+  localStorage.setItem(THEME_KEY, validTheme);
+
+  if (validTheme === DARK_THEME) {
+    document.documentElement.setAttribute("data-theme", DARK_THEME);
+    darkModeToggle.textContent = "☀️";
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    darkModeToggle.textContent = "🌙";
+  }
+}
+
+// Toggle between light and dark themes
+function toggleDarkMode() {
+  const currentTheme = localStorage.getItem(THEME_KEY) || LIGHT_THEME;
+  const newTheme = currentTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME;
+  applyTheme(newTheme);
+}
 
 // Function to pick a random phrase from the fallback array
 function getRandomFallbackPhrase() {
@@ -270,4 +314,13 @@ favoritesModal.addEventListener("click", (e) => {
   if (e.target === favoritesModal) {
     favoritesModal.classList.add("hidden");
   }
+});
+
+// Dark mode toggle button event listener
+darkModeToggle.addEventListener("click", toggleDarkMode);
+
+// Initialize theme and fetch first phrase when page loads
+document.addEventListener("DOMContentLoaded", () => {
+  initializeTheme();
+  showRandomPhrase();
 });

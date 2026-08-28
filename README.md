@@ -8,9 +8,10 @@ Lucky Phrase Generator is a demonstration web application that showcases modern 
 
 This project serves as a practical reference for:
 - API integration with error handling and fallback strategies
-- localStorage for persistent user data
-- Automated testing with Jest (34 tests covering business logic)
+- localStorage for persistent user data and theme preferences
+- Automated testing with Jest (51 tests covering business logic)
 - Responsive UI design with semantic HTML and CSS
+- Theme management (light/dark mode toggle)
 - Event-driven architecture and keyboard accessibility
 - Multiple API source management with custom response parsing
 
@@ -18,9 +19,10 @@ This project serves as a practical reference for:
 - 🎲 **Multiple API Sources** - Rotates between Advice Slip and Quotable APIs
 - 🎉 **Confetti Celebration** - Visual feedback on successful loads
 - ♡ **Favorites System** - localStorage-backed phrase bookmarking
+- 🌙 **Dark Mode Toggle** - Switch between light and dark themes with system preference detection
 - ⌨️ **Keyboard Shortcuts** - Enter/Space keys for quick access
 - 🔄 **Resilient Fallbacks** - 70+ local phrases ensure content availability
-- ✅ **Comprehensive Tests** - 34 Jest tests validating critical logic
+- ✅ **Comprehensive Tests** - 51 Jest tests validating critical logic
 
 ---
 
@@ -52,6 +54,14 @@ For a faster, more interactive experience, you can trigger a new phrase using:
 ### Confetti Celebration
 
 Every time a new phrase successfully loads, confetti particles celebrate your moment of inspiration! 🎉
+
+### Dark Mode Toggle
+
+Switch between light and dark themes by clicking the moon/sun icon in the top-left corner. Your preference is automatically saved to localStorage and will persist across browser sessions. The app also respects your system's color scheme preference if you haven't manually selected a theme.
+
+- 🌙 Moon icon (🌙) indicates light mode is active, click to switch to dark mode
+- ☀️ Sun icon (☀️) indicates dark mode is active, click to switch to light mode
+- Dark mode uses a sophisticated color palette designed for reduced eye strain
 
 ### Heart/Favorites System
 
@@ -207,6 +217,12 @@ const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY));
 
 ---
 
+## Recently Completed
+
+- Add dark mode toggle with saved theme preference
+
+---
+
 ## Future Improvements
 
 - Add phrase categories
@@ -214,4 +230,9 @@ const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY));
 - Add a copy-to-clipboard button
 - Add a daily phrase feature
 - Convert to a React app
-- Add dark mode toggle
+- Additional theme customization
+- Voice input for accessibility
+- Phrase sharing to social media
+- Analytics dashboard
+- Advanced filtering for favorites
+- Integration with more API sources
