@@ -2,14 +2,15 @@
 
 ## Overview
 
-Lucky Phrase Generator is a tiny static web app that displays random phrases focused on good luck, motivation, optimism, prosperity, confidence, and success mindset.
+Lucky Phrase Generator is a tiny web app that fetches random motivational advice from an external API and displays it on the page.
 
 This is a small beginner-friendly JavaScript project designed to practice:
 
 - HTML structure
 - CSS styling
-- JavaScript arrays
-- Random selection logic
+- Async/await and fetch API
+- API integration
+- Error handling
 - DOM updates
 - Button click events
 
@@ -17,13 +18,15 @@ This is a small beginner-friendly JavaScript project designed to practice:
 
 ## How It Works
 
-The app stores a list of motivational phrases in a JavaScript array.
+The app connects to the Advice Slip API to fetch random motivational advice.
 
 When the user clicks the button, JavaScript:
 
-1. Picks a random index from the array
-2. Retrieves the phrase at that index
-3. Updates the page with the selected phrase
+1. Makes an async request to the Advice Slip API
+2. Parses the JSON response
+3. Extracts the advice text
+4. Updates the page with the fetched advice
+5. Handles any errors gracefully
 
 ---
 
@@ -58,31 +61,35 @@ No installation required.
 
 ## Concepts Practiced
 
-### JavaScript Array
+### Fetch API
 
 ```js
-const phrases = [
-  "Good things are already on their way.",
-  "You are capable of figuring this out."
-];
+const response = await fetch("https://api.adviceslip.com/advice");
+const data = await response.json();
 ```
 
-### Random Number
+### Async/Await
 
 ```js
-Math.floor(Math.random() * phrases.length)
+async function showRandomPhrase() {
+  // Function waits for the API response
+}
+```
+
+### Error Handling
+
+```js
+try {
+  // Try to fetch the advice
+} catch (error) {
+  // Handle errors gracefully
+}
 ```
 
 ### DOM Update
 
 ```js
-phraseElement.textContent = selectedPhrase;
-```
-
-### Button Click Event
-
-```js
-button.addEventListener("click", showRandomPhrase);
+phraseElement.textContent = data.slip.advice;
 ```
 
 ---
@@ -95,4 +102,4 @@ button.addEventListener("click", showRandomPhrase);
 - Add a daily phrase feature
 - Add local storage for favorite phrases
 - Convert to a React app
-- Connect to external API to fetch dynamically
+- ✅ Connect to external API to fetch dynamically (Done!)
