@@ -1,8 +1,25 @@
-// Lucky Phrase Generator - Now using Advice Slip API
-// Fetches random motivational advice from an external API
-// Falls back to local phrases if the API is unavailable
+// Lucky Phrase Generator - Multiple API sources for variety
+// Fetches random quotes from multiple APIs with fallback to local phrases
+// Falls back to local phrases if all APIs are unavailable
 
-// Local phrases array - used as fallback if API fails
+// Array of API sources with their endpoints and custom parsers
+// Each API has a different response structure, so we parse it differently
+const apiSources = [
+  {
+    name: "Advice Slip",
+    url: "https://api.adviceslip.com/advice",
+    // Advice Slip returns: { slip: { advice: "..." } }
+    parse: (data) => data.slip.advice
+  },
+  {
+    name: "Quotable",
+    url: "https://api.quotable.io/random",
+    // Quotable returns: { content: "...", author: "..." }
+    parse: (data) => `${data.content}\n— ${data.author}`
+  }
+];
+
+// Local phrases array - used as fallback if APIs fail
 // These are curated motivational phrases for resilience
 const fallbackPhrases = [
   "Good things are already on their way.",
@@ -98,6 +115,12 @@ function getRandomFallbackPhrase() {
   return fallbackPhrases[randomIndex];
 }
 
+// Pick a random API source to vary the type of content
+function getRandomApiSource() {
+  const randomIndex = Math.floor(Math.random() * apiSources.length);
+  return apiSources[randomIndex];
+}
+
 // Load favorites from localStorage - returns an array of favorite phrases
 function loadFavorites() {
   const favorites = localStorage.getItem(FAVORITES_KEY);
@@ -184,11 +207,13 @@ async function showRandomPhrase() {
   try {
     phraseElement.textContent = "Loading...";
     
-    const response = await fetch("https://api.adviceslip.com/advice");
+    // Pick a random API source to add variety
+    const source = getRandomApiSource();
+    const response = await fetch(source.url);
     const data = await response.json();
     
-    // Store current phrase so it can be favorited
-    currentPhrase = data.slip.advice;
+    // Use the appropriate parser for this API's response format
+    currentPhrase = source.parse(data);
     phraseElement.textContent = currentPhrase;
     
     // Update heart button to show if this phrase is already favorited
@@ -198,7 +223,7 @@ async function showRandomPhrase() {
     // confetti() is provided by the canvas-confetti library
     confetti();
   } catch (error) {
-    // If API fails, show a random phrase from the fallback array instead
+    // If APIs fail, show a random phrase from the fallback array instead
     // This ensures users always get a motivational message
     currentPhrase = getRandomFallbackPhrase();
     phraseElement.textContent = currentPhrase;
@@ -206,7 +231,7 @@ async function showRandomPhrase() {
     // Update heart button for fallback phrase
     updateHeartButton();
     
-    console.error("API unavailable, using fallback phrase:", error);
+    console.error("APIs unavailable, using fallback phrase:", error);
   }
 }
 

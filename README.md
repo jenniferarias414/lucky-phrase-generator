@@ -19,16 +19,17 @@ This is a small but very entertaining JavaScript project designed to practice:
 
 ## How It Works
 
-The app connects to the Advice Slip API to fetch random motivational advice.
+The app connects to multiple APIs to fetch random quotes and advice for variety.
 
 When the user clicks the button or presses Enter/Space, JavaScript:
 
-1. Attempts to make an async request to the Advice Slip API
-2. Parses the JSON response
-3. Extracts the advice text
-4. Updates the page with the fetched advice
-5. **If the API fails**, falls back to selecting a random phrase from a local array using JavaScript array indexing and `Math.random()`
-6. Triggers confetti celebration when advice (API or fallback) successfully displays
+1. Randomly selects an API source (Advice Slip or Quotable)
+2. Makes an async request to the chosen API
+3. Parses the API response using the appropriate custom parser
+4. Extracts the quote/advice text
+5. Updates the page with the fetched content
+6. **If all APIs fail**, falls back to selecting a random phrase from a local array using JavaScript array indexing and `Math.random()`
+7. Triggers confetti celebration when content (API or fallback) successfully displays
 
 ### Fallback Logic
 
@@ -52,6 +53,14 @@ Love a phrase? Click the small "♡ Add to Favorites" button to save it!
 - **View Favorites** link in the top-right corner displays all your saved phrases in a modal
 - **Remove** individual phrases from favorites with one click
 - Favorites are saved in your browser's localStorage, so they persist even after closing the tab
+
+### Multiple API Sources
+
+The app rotates between different APIs to keep content fresh:
+- **Advice Slip** - Practical life advice and wisdom
+- **Quotable** - Famous quotes with attribution
+
+Each API has its own response format, so the app includes custom parsers to handle them. If one API is slow or unavailable, the other provides backup. If all APIs fail, local phrases ensure you always get motivated!
 
 ---
 
@@ -123,15 +132,39 @@ function getRandomFallbackPhrase() {
 }
 ```
 
-### Error Handling with Fallback
+### Multiple API Sources
+
+```js
+// Array of API sources with custom parsers
+const apiSources = [
+  {
+    name: "Advice Slip",
+    url: "https://api.adviceslip.com/advice",
+    parse: (data) => data.slip.advice
+  },
+  {
+    name: "Quotable",
+    url: "https://api.quotable.io/random",
+    parse: (data) => `${data.content} — ${data.author}`
+  }
+];
+
+function getRandomApiSource() {
+  const randomIndex = Math.floor(Math.random() * apiSources.length);
+  return apiSources[randomIndex];
+}
+```
+
+### Error Handling & Fallback Chain
 
 ```js
 try {
-  // Try to fetch the advice
+  const source = getRandomApiSource();
+  const response = await fetch(source.url);
+  currentPhrase = source.parse(await response.json());
 } catch (error) {
-  // Fall back to local random phrase
-  const fallbackPhrase = getRandomFallbackPhrase();
-  phraseElement.textContent = fallbackPhrase;
+  // Try next API or fall back to local phrases
+  currentPhrase = getRandomFallbackPhrase();
 }
 ```
 
@@ -154,3 +187,4 @@ const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY));
 - Add a copy-to-clipboard button
 - Add a daily phrase feature
 - Convert to a React app
+- Add dark mode toggle
