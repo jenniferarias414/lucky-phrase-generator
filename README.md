@@ -20,13 +20,20 @@ This is a small beginner-friendly JavaScript project designed to practice:
 
 The app connects to the Advice Slip API to fetch random motivational advice.
 
-When the user clicks the button, JavaScript:
+When the user clicks the button or presses Enter/Space, JavaScript:
 
 1. Makes an async request to the Advice Slip API
 2. Parses the JSON response
 3. Extracts the advice text
 4. Updates the page with the fetched advice
 5. Handles any errors gracefully
+
+### Keyboard Shortcuts
+
+For a faster, more interactive experience, you can trigger a new phrase using:
+- **Click** the "Give me a phrase" button
+- **Press Enter** on your keyboard
+- **Press Space** on your keyboard
 
 ---
 
