@@ -94,7 +94,6 @@ lucky-phrase-generator/
 └── .gitignore
 ```
 
-
 ---
 
 ## Screenshots
