@@ -182,6 +182,23 @@ button:active {
   border-color: #f77a7a;
 }
 
+[data-theme="dark"] .copy-btn {
+  background: transparent;
+  border-color: #b88edb;
+  color: #b88edb;
+}
+
+[data-theme="dark"] .copy-btn:hover:not(:disabled) {
+  color: #f77a7a;
+  border-color: #f77a7a;
+  box-shadow: 0 4px 12px rgba(247, 122, 122, 0.2);
+}
+
+[data-theme="dark"] .copy-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 [data-theme="dark"] .modal-content {
   background: #2a2a2a;
   color: #e0e0e0;
@@ -271,6 +288,32 @@ button:active {
   color: white;
   border-color: #e74c3c;
   box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+/* Copy button - positioned above the main button */
+.copy-btn {
+  background: transparent;
+  color: #7b4bb7;
+  border: 1px solid #7b4bb7;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  margin-bottom: 12px;
+  margin-left: 8px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.copy-btn:hover:not(:disabled) {
+  color: #b88edb;
+  border-color: #b88edb;
+  box-shadow: 0 4px 12px rgba(123, 75, 183, 0.15);
+}
+
+.copy-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Modal styling for viewing favorites */
