@@ -88,11 +88,11 @@ Love a phrase? Click the small "♡ Add to Favorites" button to save it!
 
 ### Multiple API Sources
 
-The app rotates between different APIs to keep content fresh:
+When **All** is selected, the app rotates between different APIs to keep content fresh:
 - **Advice Slip** - Practical life advice and wisdom
 - **Quotable** - Famous quotes with attribution
 
-Each API has its own response format, so the app includes custom parsers to handle them. If one API is slow or unavailable, the other provides backup. If all APIs fail, local phrases ensure you always get motivated!
+Each API has its own response format, so the app includes custom parsers to handle them. If the selected API is slow or unavailable, local phrases ensure you always get motivated!
 
 ---
 
@@ -168,17 +168,24 @@ async function showRandomPhrase() {
 
 ```js
 const fallbackPhrases = [
-  "Good things are already on their way.",
-  "You are capable of figuring this out."
+  {
+    text: "Good things are already on their way.",
+    category: "Motivation"
+  },
+  {
+    text: "You are capable of figuring this out.",
+    category: "Confidence"
+  }
 ];
 ```
 
 ### Random Selection from Array
 
 ```js
-function getRandomFallbackPhrase() {
-  const randomIndex = Math.floor(Math.random() * fallbackPhrases.length);
-  return fallbackPhrases[randomIndex];
+function getRandomFallbackPhrase(category = "All") {
+  const phrases = getFallbackPhrasesByCategory(category);
+  const randomIndex = Math.floor(Math.random() * phrases.length);
+  return phrases[randomIndex].text;
 }
 ```
 
@@ -233,12 +240,12 @@ const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY));
 ## Recently Completed
 
 - Add dark mode toggle with saved theme preference
+- Add phrase categories
 
 ---
 
 ## Future Improvements
 
-- Add phrase categories
 - Add animations
 - Add a daily phrase feature
 - Convert to a React app

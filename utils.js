@@ -3,71 +3,74 @@
 
 const FAVORITES_KEY = "luckyPhraseGenerator_favorites";
 
+const ALL_CATEGORIES = "All";
+const PHRASE_CATEGORIES = [ALL_CATEGORIES, "Motivation", "Confidence", "Life", "Funny"];
+
 // Fallback phrases array
 const fallbackPhrases = [
-  "Good things are already on their way.",
-  "You are capable of figuring this out.",
-  "Your next chapter can be bigger than your last one.",
-  "Stay steady. The work is working.",
-  "Your body, breath, and mind are all part of the same natural strength.",
-  "Confidence grows every time you keep going.",
-  "You do not need perfect timing to make progress.",
-  "The opportunity you are preparing for is preparing you too.",
-  "A calm mind makes powerful moves.",
-  "You are allowed to believe this can go well.",
-  "Small steps still move the story forward.",
-  "You are building proof, one day at a time.",
-  "Luck loves preparation.",
-  "Prosperity can start with one brave decision.",
-  "What you focus on is what you draw closer.",
-  "You have handled hard things before.",
-  "The right doors know how to open.",
-  "Your effort is not invisible.",
-  "You can be nervous and ready at the same time.",
-  "Momentum starts with one honest step.",
-  "The version of you that wins is already forming.",
-  "Trust the work you have been putting in.",
-  "You bring value before you feel fully ready.",
-  "Stay open. Something good may be closer than it looks.",
-  "Your consistency is creating options.",
-  "Grow through what you go through.",
-  "You are stronger than you think.",
-  "Take a break and try again later. Your future self will thank you.",
-  "Today you honored your wellbeing, and tomorrow you return with fresh energy and purpose.",
-  "All winners were once beginners.",
-  "Today's effort is tomorrow's advantage.",
-  "A better outcome is still possible.",
-  "You are not behind. You are becoming.",
-  "Let today be evidence that you keep showing up.",
-  "Your courage is louder than your doubt.",
-  "Success can arrive quietly, then all at once.",
-  "You are learning your way into the next level.",
-  "What is meant for you can meet you while you are still growing.",
-  "A mirror can show the bruise and still miss the strength.",
-  "You are not fake for meeting the edge of what you know.",
-  "The questions you missed today can become the ground you stand on tomorrow.",
-  "A shaky answer does not erase real effort, real learning, or real belonging.",
-  "Let the hurt name the lesson, not your worth.",
-  "You can be disappointed and still be becoming someone formidable.",
-  "A stumble in the room is not proof you were never meant to enter it.",
-  "The soul gets centered when the story gets honest: you struggled, you care, and you are still here.",
-  "Basic questions can feel heavy on a hard day. Keep studying without making cruelty your teacher.",
-  "You are...\n- a junior engineer\n- with real production experience\n- aggressively investing in growth\n- learning fast\n- contributing meaningfully\n- already trusted in enterprise systems\n\nThat is REAL.",
-  "You are a learner who is investing in growth, and that is a powerful thing to be.",
-  "Your career is DATA. And data is sexy.",
-  "Don't stop when you get to the next level. Keep going. The next level is just the beginning of a new chapter.",
-  "Don't stop when you're tired. Stop when you are done.",
-  "When you feel like giving up, remember why you started.",
-  "They saw the gaps and still saw the potential. That counts as evidence.",
-  "You do not have to be flawless to be worth betting on.",
-  "Needing notes does not make you fake. It makes you someone who knows how to find the answer.",
-  "A hard interview can still become a doorway.",
-  "Keep learning the simple answers too. They are part of the foundation you are already building.",
-  "Every skill gets less mysterious when you keep meeting it with patience and practice.",
-  "Waiting for the answer does not mean your momentum has stopped. Keep tending to the life you are building.",
-  "May the right door open with less effort than you feared and more joy than you expected.",
-  "If this door closes, grieve it honestly, then come back to the next small lesson. Your future is still asking you to show up.",
-  "Your progress is not measured by how loud others applaud it. It is measured by how honest your effort has been."
+  { text: "Good things are already on their way.", category: "Motivation" },
+  { text: "You are capable of figuring this out.", category: "Confidence" },
+  { text: "Your next chapter can be bigger than your last one.", category: "Life" },
+  { text: "Stay steady. The work is working.", category: "Motivation" },
+  { text: "Your body, breath, and mind are all part of the same natural strength.", category: "Life" },
+  { text: "Confidence grows every time you keep going.", category: "Confidence" },
+  { text: "You do not need perfect timing to make progress.", category: "Motivation" },
+  { text: "The opportunity you are preparing for is preparing you too.", category: "Motivation" },
+  { text: "A calm mind makes powerful moves.", category: "Confidence" },
+  { text: "You are allowed to believe this can go well.", category: "Confidence" },
+  { text: "Small steps still move the story forward.", category: "Motivation" },
+  { text: "You are building proof, one day at a time.", category: "Motivation" },
+  { text: "Luck loves preparation.", category: "Motivation" },
+  { text: "Prosperity can start with one brave decision.", category: "Motivation" },
+  { text: "What you focus on is what you draw closer.", category: "Life" },
+  { text: "You have handled hard things before.", category: "Confidence" },
+  { text: "The right doors know how to open.", category: "Life" },
+  { text: "Your effort is not invisible.", category: "Motivation" },
+  { text: "You can be nervous and ready at the same time.", category: "Confidence" },
+  { text: "Momentum starts with one honest step.", category: "Motivation" },
+  { text: "The version of you that wins is already forming.", category: "Confidence" },
+  { text: "Trust the work you have been putting in.", category: "Confidence" },
+  { text: "You bring value before you feel fully ready.", category: "Confidence" },
+  { text: "Stay open. Something good may be closer than it looks.", category: "Life" },
+  { text: "Your consistency is creating options.", category: "Motivation" },
+  { text: "Grow through what you go through.", category: "Life" },
+  { text: "You are stronger than you think.", category: "Confidence" },
+  { text: "Take a break and try again later. Your future self will thank you.", category: "Life" },
+  { text: "Today you honored your wellbeing, and tomorrow you return with fresh energy and purpose.", category: "Life" },
+  { text: "All winners were once beginners.", category: "Motivation" },
+  { text: "Today's effort is tomorrow's advantage.", category: "Motivation" },
+  { text: "A better outcome is still possible.", category: "Life" },
+  { text: "You are not behind. You are becoming.", category: "Life" },
+  { text: "Let today be evidence that you keep showing up.", category: "Motivation" },
+  { text: "Your courage is louder than your doubt.", category: "Confidence" },
+  { text: "Success can arrive quietly, then all at once.", category: "Motivation" },
+  { text: "You are learning your way into the next level.", category: "Motivation" },
+  { text: "What is meant for you can meet you while you are still growing.", category: "Life" },
+  { text: "A mirror can show the bruise and still miss the strength.", category: "Life" },
+  { text: "You are not fake for meeting the edge of what you know.", category: "Confidence" },
+  { text: "The questions you missed today can become the ground you stand on tomorrow.", category: "Life" },
+  { text: "A shaky answer does not erase real effort, real learning, or real belonging.", category: "Confidence" },
+  { text: "Let the hurt name the lesson, not your worth.", category: "Life" },
+  { text: "You can be disappointed and still be becoming someone formidable.", category: "Confidence" },
+  { text: "A stumble in the room is not proof you were never meant to enter it.", category: "Life" },
+  { text: "The soul gets centered when the story gets honest: you struggled, you care, and you are still here.", category: "Life" },
+  { text: "Basic questions can feel heavy on a hard day. Keep studying without making cruelty your teacher.", category: "Life" },
+  { text: "You are...\n- a junior engineer\n- with real production experience\n- aggressively investing in growth\n- learning fast\n- contributing meaningfully\n- already trusted in enterprise systems\n\nThat is REAL.", category: "Confidence" },
+  { text: "You are a learner who is investing in growth, and that is a powerful thing to be.", category: "Confidence" },
+  { text: "Your career is DATA. And data is sexy.", category: "Funny" },
+  { text: "Don't stop when you get to the next level. Keep going. The next level is just the beginning of a new chapter.", category: "Motivation" },
+  { text: "Don't stop when you're tired. Stop when you are done.", category: "Motivation" },
+  { text: "When you feel like giving up, remember why you started.", category: "Motivation" },
+  { text: "They saw the gaps and still saw the potential. That counts as evidence.", category: "Confidence" },
+  { text: "You do not have to be flawless to be worth betting on.", category: "Confidence" },
+  { text: "Needing notes does not make you fake. It makes you someone who knows how to find the answer.", category: "Confidence" },
+  { text: "A hard interview can still become a doorway.", category: "Life" },
+  { text: "Keep learning the simple answers too. They are part of the foundation you are already building.", category: "Motivation" },
+  { text: "Every skill gets less mysterious when you keep meeting it with patience and practice.", category: "Motivation" },
+  { text: "Waiting for the answer does not mean your momentum has stopped. Keep tending to the life you are building.", category: "Life" },
+  { text: "May the right door open with less effort than you feared and more joy than you expected.", category: "Life" },
+  { text: "If this door closes, grieve it honestly, then come back to the next small lesson. Your future is still asking you to show up.", category: "Life" },
+  { text: "Your progress is not measured by how loud others applaud it. It is measured by how honest your effort has been.", category: "Life" }
 ];
 
 // API source configuration
@@ -143,11 +146,26 @@ function toggleFavorite(phrase) {
 
 /**
  * Get a random phrase from the fallback phrases array
+ * @param {string} category - Category to filter by, or All for every phrase
  * @returns {string} A random phrase
  */
-function getRandomFallbackPhrase() {
-  const randomIndex = Math.floor(Math.random() * fallbackPhrases.length);
-  return fallbackPhrases[randomIndex];
+function getRandomFallbackPhrase(category = ALL_CATEGORIES) {
+  const phrases = getFallbackPhrasesByCategory(category);
+  const randomIndex = Math.floor(Math.random() * phrases.length);
+  return phrases[randomIndex].text;
+}
+
+/**
+ * Get fallback phrase objects for a valid category.
+ * @param {string} category - Category to filter by, or All for every phrase
+ * @returns {Object[]} Fallback phrase objects
+ */
+function getFallbackPhrasesByCategory(category = ALL_CATEGORIES) {
+  if (!PHRASE_CATEGORIES.includes(category) || category === ALL_CATEGORIES) {
+    return fallbackPhrases;
+  }
+
+  return fallbackPhrases.filter((phrase) => phrase.category === category);
 }
 
 /**
@@ -266,11 +284,14 @@ if (typeof module !== "undefined" && module.exports) {
     isFavorited,
     toggleFavorite,
     getRandomFallbackPhrase,
+    getFallbackPhrasesByCategory,
     getRandomApiSource,
     parseAdviceSlipResponse,
     parseQuotableResponse,
     fallbackPhrases,
     apiSources,
+    PHRASE_CATEGORIES,
+    ALL_CATEGORIES,
     FAVORITES_KEY,
     getCurrentTheme,
     setTheme,

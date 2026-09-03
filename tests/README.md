@@ -19,7 +19,7 @@ Testing serves three primary objectives in professional software development:
 ### What We Test vs. What We Skip
 
 **We Test:**
-- **Business Logic** - The core algorithms and data transformations (favorites persistence, random selection, API parsing)
+- **Business Logic** - The core algorithms and data transformations (favorites persistence, random selection, category filtering, API parsing)
 - **Edge Cases** - Boundary conditions and error scenarios (empty arrays, invalid data, localStorage corruption)
 - **Critical Paths** - User-facing features that directly impact application reliability
 
@@ -32,7 +32,7 @@ Testing serves three primary objectives in professional software development:
 
 ## Test Files
 
-### `favorites.test.js` (7 tests)
+### `favorites.test.js` (13 tests)
 
 Tests the localStorage integration and favorites toggle system. This validates data persistence—a critical requirement for user trust.
 
@@ -47,12 +47,14 @@ Tests the localStorage integration and favorites toggle system. This validates d
 - Mocking external dependencies (localStorage)
 - State mutation and verification
 
-### `randomization.test.js` (6 tests)
+### `randomization.test.js` (16 tests)
 
 Tests the random selection functions that provide variety and API source distribution.
 
 **Tests:**
-- **getRandomFallbackPhrase()** - Validates selection from array and ensures no undefined values
+- **fallbackPhrases** - Validates categorized phrase object structure
+- **getRandomFallbackPhrase()** - Validates selection from array, category-aware selection, string return values, and invalid-category fallback
+- **getFallbackPhrasesByCategory()** - Confirms filtering for All, invalid categories, and specific categories
 - **getRandomApiSource()** - Confirms proper API source selection and structure validation
 - **Distribution Testing** - Probabilistic tests verify randomness over multiple iterations
 
@@ -61,7 +63,21 @@ Tests the random selection functions that provide variety and API source distrib
 - Collection-based assertions (`toContain`, `toHaveProperty`)
 - Iteration and sampling strategies for randomness validation
 
-### `api.test.js` (10 tests)
+### `phrase.category.test.js` (5 tests)
+
+Tests the phrase category constants and local fallback phrase filtering behavior.
+
+**Tests:**
+- **PHRASE_CATEGORIES** - Confirms the expected category options are exposed
+- **getFallbackPhrasesByCategory()** - Validates All, invalid-category, and specific-category filtering
+- **Category Availability** - Confirms each selectable local category has at least one phrase
+
+**Key Concepts:**
+- Constant validation
+- Filtered collection assertions
+- Guarding user-facing category options from empty result sets
+
+### `api.test.js` (12 tests)
 
 Tests the API response parsers that transform external API responses into displayable content.
 
@@ -125,9 +141,9 @@ npm test -- --coverage
 
 ## Test Metrics
 
-- **Total Tests:** 51
-- **Covered Functions:** 11 pure utility functions
-- **Test Categories:** Favorites (7), Randomization (6), API Parsing (10), Theme (17)
+- **Total Tests:** 69
+- **Covered Functions:** 12 pure utility functions
+- **Test Categories:** Favorites (13), Randomization (16), Phrase Categories (5), API Parsing (12), Theme (17), Clipboard (6)
 - **Coverage Goal:** 90%+ for business logic
 
 ---
@@ -236,6 +252,6 @@ When contributing new functionality:
 
 ---
 
-**Last Updated:** August 28, 2026
+**Last Updated:** September 3, 2026
 **Test Framework:** Jest 29+
 **Node Version:** 18+

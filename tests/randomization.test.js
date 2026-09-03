@@ -3,16 +3,40 @@
 
 const {
   getRandomFallbackPhrase,
+  getFallbackPhrasesByCategory,
   getRandomApiSource,
   fallbackPhrases,
-  apiSources
+  apiSources,
+  PHRASE_CATEGORIES,
+  ALL_CATEGORIES
 } = require("../utils");
 
 describe("Randomization Functions", () => {
+  describe("fallbackPhrases", () => {
+    test("should store fallback phrases as categorized objects", () => {
+      fallbackPhrases.forEach((phrase) => {
+        expect(phrase).toHaveProperty("text");
+        expect(phrase).toHaveProperty("category");
+        expect(typeof phrase.text).toBe("string");
+        expect(phrase.text.length).toBeGreaterThan(0);
+        expect(PHRASE_CATEGORIES).toContain(phrase.category);
+        expect(phrase.category).not.toBe(ALL_CATEGORIES);
+      });
+    });
+
+    test("should have at least one phrase for each selectable local category", () => {
+      PHRASE_CATEGORIES
+        .filter((category) => category !== ALL_CATEGORIES)
+        .forEach((category) => {
+          expect(getFallbackPhrasesByCategory(category).length).toBeGreaterThan(0);
+        });
+    });
+  });
+
   describe("getRandomFallbackPhrase()", () => {
     test("should return a phrase from the fallback array", () => {
       const result = getRandomFallbackPhrase();
-      expect(fallbackPhrases).toContain(result);
+      expect(fallbackPhrases.map((phrase) => phrase.text)).toContain(result);
     });
 
     test("should never return undefined", () => {
@@ -47,6 +71,44 @@ describe("Randomization Functions", () => {
       // Should be able to reach most phrases over many iterations
       // (This is a probabilistic test - not guaranteed to hit all 70+)
       expect(results.size).toBeGreaterThan(fallbackPhrases.length * 0.5);
+    });
+
+    test("should return a phrase from a requested category", () => {
+      const categoryPhrases = getFallbackPhrasesByCategory("Confidence").map((phrase) => phrase.text);
+
+      for (let i = 0; i < 50; i++) {
+        const result = getRandomFallbackPhrase("Confidence");
+        expect(categoryPhrases).toContain(result);
+      }
+    });
+
+    test("should safely treat invalid categories like All", () => {
+      const result = getRandomFallbackPhrase("Not a real category");
+
+      expect(fallbackPhrases.map((phrase) => phrase.text)).toContain(result);
+    });
+  });
+
+  describe("getFallbackPhrasesByCategory()", () => {
+    test("should return all fallback phrases for All", () => {
+      const result = getFallbackPhrasesByCategory(ALL_CATEGORIES);
+
+      expect(result).toEqual(fallbackPhrases);
+    });
+
+    test("should return all fallback phrases for invalid categories", () => {
+      const result = getFallbackPhrasesByCategory("Unknown");
+
+      expect(result).toEqual(fallbackPhrases);
+    });
+
+    test("should return only matching phrases for a specific category", () => {
+      const result = getFallbackPhrasesByCategory("Life");
+
+      expect(result.length).toBeGreaterThan(0);
+      result.forEach((phrase) => {
+        expect(phrase.category).toBe("Life");
+      });
     });
   });
 
