@@ -9,7 +9,7 @@ Lucky Phrase Generator is a demonstration web application that showcases modern 
 This project serves as a practical reference for:
 - API integration with error handling and fallback strategies
 - localStorage for persistent user data and theme preferences
-- Automated testing with Jest (51 tests covering business logic)
+- Automated testing with Jest (57 tests covering business logic)
 - Responsive UI design with semantic HTML and CSS
 - Theme management (light/dark mode toggle)
 - Event-driven architecture and keyboard accessibility
@@ -20,9 +20,10 @@ This project serves as a practical reference for:
 - 🎉 **Confetti Celebration** - Visual feedback on successful loads
 - ♡ **Favorites System** - localStorage-backed phrase bookmarking
 - 🌙 **Dark Mode Toggle** - Switch between light and dark themes with system preference detection
+- 📋 **Copy to Clipboard** - Easy one-click copying of phrases with clear feedback
 - ⌨️ **Keyboard Shortcuts** - Enter/Space keys for quick access
 - 🔄 **Resilient Fallbacks** - 70+ local phrases ensure content availability
-- ✅ **Comprehensive Tests** - 51 Jest tests validating critical logic
+- ✅ **Comprehensive Tests** - 57 Jest tests validating critical logic
 
 ---
 
@@ -225,7 +226,6 @@ const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY));
 
 - Add phrase categories
 - Add animations
-- Add a copy-to-clipboard button
 - Add a daily phrase feature
 - Convert to a React app
 - Additional theme customization
