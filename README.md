@@ -9,7 +9,7 @@ Lucky Phrase Generator is a demonstration web application that showcases modern 
 This project serves as a practical reference for:
 - API integration with error handling and fallback strategies
 - localStorage for persistent user data and theme preferences
-- Automated testing with Jest (57 tests covering business logic)
+- Automated testing with Jest (69 tests covering business logic)
 - Responsive UI design with semantic HTML and CSS
 - Theme management (light/dark mode toggle)
 - Event-driven architecture and keyboard accessibility
@@ -18,12 +18,13 @@ This project serves as a practical reference for:
 ### Live Features
 - 🎲 **Multiple API Sources** - Rotates between Advice Slip and Quotable APIs
 - 🎉 **Confetti Celebration** - Visual feedback on successful loads
+- 🗂️ **Phrase Categories** - Filter local phrases by Motivation, Confidence, Life, or Funny
 - ♡ **Favorites System** - localStorage-backed phrase bookmarking
 - 🌙 **Dark Mode Toggle** - Switch between light and dark themes with system preference detection
 - 📋 **Copy to Clipboard** - Easy one-click copying of phrases with clear feedback
 - ⌨️ **Keyboard Shortcuts** - Enter/Space keys for quick access
 - 🔄 **Resilient Fallbacks** - 70+ local phrases ensure content availability
-- ✅ **Comprehensive Tests** - 57 Jest tests validating critical logic
+- ✅ **Comprehensive Tests** - 69 Jest tests validating critical logic
 
 ---
 
@@ -33,17 +34,30 @@ The app connects to multiple APIs to fetch random quotes and advice for variety.
 
 When the user clicks the button or presses Enter/Space, JavaScript:
 
-1. Randomly selects an API source (Advice Slip or Quotable)
-2. Makes an async request to the chosen API
-3. Parses the API response using the appropriate custom parser
-4. Extracts the quote/advice text
-5. Updates the page with the fetched content
-6. **If all APIs fail**, falls back to selecting a random phrase from a local array using JavaScript array indexing and `Math.random()`
-7. Triggers confetti celebration when content (API or fallback) successfully displays
+1. Reads the selected category
+2. If **All** is selected, randomly selects an API source (Advice Slip or Quotable)
+3. Makes an async request to the chosen API
+4. Parses the API response using the appropriate custom parser
+5. Extracts the quote/advice text
+6. Updates the page with the fetched content
+7. **If the API fails**, falls back to selecting a random phrase from the local categorized array using JavaScript array indexing and `Math.random()`
+8. If a specific category is selected, skips external APIs and selects a local phrase from that category
+9. Triggers confetti celebration when content (API or fallback) successfully displays
 
 ### Fallback Logic
 
-The app maintains a curated array of 70+ motivational phrases as a fallback. If the API is unavailable or fails, a random phrase from this local array is displayed instead, ensuring the app always provides motivation!
+The app maintains a curated array of 70+ categorized phrases as a fallback. If the API is unavailable or fails while **All** is selected, a random phrase from this local array is displayed instead. When a specific category is selected, local phrases are used directly so the selected category is respected.
+
+### Phrase Categories
+
+Use the category dropdown to choose:
+- **All** - Keeps the current API-first behavior with local fallback
+- **Motivation**
+- **Confidence**
+- **Life**
+- **Funny**
+
+Specific categories use local fallback phrases only because external API phrases do not include matching local category metadata.
 
 ### Keyboard Shortcuts
 
