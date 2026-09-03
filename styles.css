@@ -137,6 +137,16 @@ button:active {
   color: #e0e0e0;
 }
 
+[data-theme="dark"] .category-control label {
+  color: #b0b0b0;
+}
+
+[data-theme="dark"] .category-select {
+  background: #404040;
+  border-color: #b88edb;
+  color: #e0e0e0;
+}
+
 [data-theme="dark"] .footer-note {
   color: #b0b0b0;
 }
@@ -260,6 +270,31 @@ button:active {
   color: #e74c3c;
   transform: scale(1.05);
   box-shadow: none;
+}
+
+.category-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.category-control label {
+  color: #6f6f6f;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.category-select {
+  appearance: auto;
+  background: white;
+  border: 1px solid #7b4bb7;
+  border-radius: 999px;
+  color: #242424;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 8px 14px;
 }
 
 /* Small heart button - positioned above the main button */
