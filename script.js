@@ -98,6 +98,7 @@ That is REAL.`,
 const phraseElement = document.getElementById("phrase");
 const button = document.getElementById("phraseButton");
 const heartButton = document.getElementById("heartButton");
+const copyButton = document.getElementById("copyButton");
 const viewFavoritesButton = document.getElementById("viewFavoritesButton");
 const favoritesModal = document.getElementById("favoritesModal");
 const closeModal = document.getElementById("closeModal");
@@ -151,6 +152,26 @@ function toggleDarkMode() {
   const currentTheme = localStorage.getItem(THEME_KEY) || LIGHT_THEME;
   const newTheme = currentTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME;
   applyTheme(newTheme);
+}
+
+// Copy text to clipboard using the Clipboard API
+async function copyToClipboard(text) {
+  if (!text) {
+    return false;
+  }
+
+  try {
+    // Use navigator.clipboard API for modern browsers
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (error) {
+    console.error("Clipboard copy failed:", error);
+    return false;
+  }
+
+  return false;
 }
 
 // Function to pick a random phrase from the fallback array
@@ -263,6 +284,9 @@ async function showRandomPhrase() {
     // Update heart button to show if this phrase is already favorited
     updateHeartButton();
     
+    // Update copy button disabled state
+    updateCopyButtonState();
+    
     // Trigger confetti celebration when advice successfully loads
     // confetti() is provided by the canvas-confetti library
     confetti();
@@ -274,6 +298,9 @@ async function showRandomPhrase() {
     
     // Update heart button for fallback phrase
     updateHeartButton();
+    
+    // Update copy button disabled state
+    updateCopyButtonState();
     
     console.error("APIs unavailable, using fallback phrase:", error);
   }
@@ -301,6 +328,41 @@ heartButton.addEventListener("click", () => {
   }
 });
 
+// Copy button event listener - copy current phrase to clipboard
+copyButton.addEventListener("click", async () => {
+  if (!currentPhrase) {
+    return; // Button should be disabled, but safeguard anyway
+  }
+
+  const success = await copyToClipboard(currentPhrase);
+  const originalText = "📋 Copy";
+  const originalLabel = "Copy phrase to clipboard";
+
+  if (success) {
+    copyButton.textContent = "✓ Copied!";
+    copyButton.setAttribute("aria-label", "Phrase copied to clipboard");
+  } else {
+    copyButton.textContent = "✗ Copy failed";
+    copyButton.setAttribute("aria-label", "Copy failed");
+  }
+
+  // Reset button after 2 seconds
+  setTimeout(() => {
+    copyButton.textContent = originalText;
+    copyButton.setAttribute("aria-label", originalLabel);
+    updateCopyButtonState();
+  }, 2000);
+});
+
+// Update copy button disabled state based on whether there's a phrase to copy
+function updateCopyButtonState() {
+  if (currentPhrase && currentPhrase !== "Loading..." && currentPhrase !== "Click the button for a little boost of optimism.") {
+    copyButton.disabled = false;
+  } else {
+    copyButton.disabled = true;
+  }
+}
+
 // View Favorites button event listener - open the favorites modal
 viewFavoritesButton.addEventListener("click", displayFavorites);
 
@@ -322,5 +384,6 @@ darkModeToggle.addEventListener("click", toggleDarkMode);
 // Initialize theme and fetch first phrase when page loads
 document.addEventListener("DOMContentLoaded", () => {
   initializeTheme();
+  updateCopyButtonState(); // Disable copy button initially until a phrase loads
   showRandomPhrase();
 });
