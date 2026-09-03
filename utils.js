@@ -232,6 +232,32 @@ function toggleTheme() {
   return newTheme;
 }
 
+// ===== CLIPBOARD =====
+
+/**
+ * Copy text to clipboard using the Clipboard API
+ * @param {string} text - The text to copy
+ * @returns {Promise<boolean>} Promise that resolves to true if copy succeeded, false if it failed
+ */
+async function copyToClipboard(text) {
+  if (!text) {
+    return false;
+  }
+
+  try {
+    // Use navigator.clipboard API for modern browsers
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (error) {
+    console.error("Clipboard copy failed:", error);
+    return false;
+  }
+
+  return false;
+}
+
 // Export for Node.js testing
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
@@ -251,6 +277,7 @@ if (typeof module !== "undefined" && module.exports) {
     toggleTheme,
     THEME_KEY,
     DARK_THEME,
-    LIGHT_THEME
+    LIGHT_THEME,
+    copyToClipboard
   };
 }
